@@ -33,7 +33,6 @@ client.on('interactionCreate', async interaction => {
     await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
   }
 });
-console.log(token);
 keepAlive();
 // Login to Discord with your client's token
 client.login(token);
