@@ -1,7 +1,7 @@
 {
   "name": "kofxv-framebot",
   "version": "1.0.0",
-  "description": "",
+  "description": "Discord frame bot for KOF XV",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,7 +14,20 @@
     "@discordjs/builders": "^0.12.0",
     "@discordjs/rest": "^0.3.0",
     "discord-api-types": "^0.27.3",
-    "discord.js": "^12.5.3",
-    "dotenv": "^10.0.0"
-  }
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "node": "^16.13.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dens0ne/kofxv_framebot.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/dens0ne/kofxv_framebot/issues"
+  },
+  "homepage": "https://github.com/dens0ne/kofxv_framebot#readme"
 }

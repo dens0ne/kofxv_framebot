@@ -1,8 +1,10 @@
 // Require the necessary discord.js classes
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
+const keepAlive = require('./server');
 const dotenv = require('dotenv');
 dotenv.config();
+const token = process.env['DISCORD_TOKEN']
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
@@ -31,5 +33,7 @@ client.on('interactionCreate', async interaction => {
     await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
   }
 });
+console.log(token);
+keepAlive();
 // Login to Discord with your client's token
-client.login(process.env.DISCORD_TOKEN);
+client.login(token);
