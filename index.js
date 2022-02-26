@@ -5,6 +5,7 @@ const keepAlive = require('./server');
 const dotenv = require('dotenv');
 dotenv.config();
 const token = process.env['DISCORD_TOKEN']
+
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
@@ -33,6 +34,17 @@ client.on('interactionCreate', async interaction => {
     await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
   }
 });
+client.on("ready", () => {
+  console.log(`Hi, ${client.user.username} is now online!`);
+
+  client.user.setPresence({
+    status: "online",
+    activities: [{
+      name: 'oonga? Use /frames to get started'
+    }],
+  }); 
+});
+// client.user.setPresence({ activities: [{ name: 'with discord.js' }] });
 keepAlive();
 // Login to Discord with your client's token
 client.login(token);

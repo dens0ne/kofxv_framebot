@@ -27,6 +27,12 @@ module.exports = {
         const data = JSON.parse(jsonObject);
         // Capitilize first letter of character name.
         let character = char.charAt(0).toUpperCase() + char.slice(1);
+        // Temp: validate king of dinosaurs weird name.
+        if (character === 'King of dinosaurs' ||
+            character === 'Kod' ||
+            character === 'King of Dinosaurs') {
+          character = 'KODino'
+            }
         // If character not found, exit.
         if (data.hasOwnProperty(character) === false) {
           return interaction.reply('Could not find specified character: ' + character + '.');
@@ -34,15 +40,23 @@ module.exports = {
         // Trim extra whitespaces from move.
         let parsedMove = move.trimEnd();
         parsedMove = parsedMove.trimStart();
+        let singleButton = false
+        // Check if single button passed.
+        if (parsedMove.match(/^[+\-aAbBcCdD() .]+$/g)) {
+          singleButton = true
+          // Preppend "close" to return valid value.
+          parsedMove = 'close ' + parsedMove
+        }
         // Convert dots into whitespaces.
         parsedMove = parsedMove.replace('.', ' ')
-        const moveArray = parsedMove.split(" ")
         // Trim whitespaces and add caps, turning "236 a" into "236A".
         if (parsedMove.match(/^[\d+ $+\-aAbBcCdD().]+$/g) ) {
           parsedMove = parsedMove.toUpperCase()
           parsedMove = parsedMove.replace(' ', '')
+          console.log("Is this still useful? " + parsedMove)
         }
-        escapedMoves = ''
+        let escapedMoves = ''
+        const moveArray = parsedMove.split(" ")
         moveArray.forEach((element) => {
           // Turn ABCD to uppercase if they are not.
           if (element.match(/^[+\-aAbBcCdD() .]+$/g) ) {
@@ -62,15 +76,13 @@ module.exports = {
           response += (moveData.BLOCK !== null) ? '[on Block]: ' + moveData.BLOCK + ' ' : '';
           response += (moveData.HIT !== null) ? '[on Hit]: ' + moveData.HIT + ' ' : '';
           response += (moveData.NOTES !== null) ? '[Notes]: ' + moveData.NOTES + ' ' : '';
-          
+          response += (singleButton) ? '\n*Note: By default, for single buttons we return the "close button" value. For better results, try preppending a button with "close" or "far" (e.g. close A or far D).*' : '';
           // console.log(moveData.BLOCK)
           return interaction.reply(response);
-        // return interaction.reply('WIP!');
       } catch (err) {
         console.log("Error parsing JSON string:", err);
         return interaction.reply('There was an error while processing your request, if the problem persists, contact the bot developers.');
       }
     });
-    // return interaction.reply(reply);
   },
 };
