@@ -2,9 +2,9 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const keepAlive = require('./server');
-const dotenv = require('dotenv');
-dotenv.config();
-const token = process.env['DISCORD_TOKEN']
+const path = require('path')
+// const dotenv = require('dotenv');
+// dotenv.config();
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
@@ -44,7 +44,16 @@ client.on("ready", () => {
     }],
   }); 
 });
-// client.user.setPresence({ activities: [{ name: 'with discord.js' }] });
-keepAlive();
+// Keep bot alive.
+// server imports
+const express = require('express');
+const app = express();
+const port = 3000;
+// create main route
+app.get('/', (req, res) => res.send('Hello World!'));
+// instantiate server
+app.listen(port, () => console.log(`App is listening at http://localhost:${port}`));
+// keepAlive();
 // Login to Discord with your client's token
+const token = process.env['DISCORD_TOKEN']
 client.login(token);
