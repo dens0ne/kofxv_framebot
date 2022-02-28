@@ -18,7 +18,7 @@ module.exports = {
     const char = interaction.options.getString('character');
     const move = interaction.options.getString('move');
     // Load frame data json.
-    fs.readFile("./assets/framedata.json", "utf8", (err, jsonObject) => {
+    fs.readFile("../../assets/framedata.json", "utf8", (err, jsonObject) => {
       if (err) {
         // console.log("Error reading file from disk:", err);
         return interaction.reply('Could not load frame data file. Please contact the bot developers.');
