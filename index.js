@@ -38,7 +38,7 @@ client.on('interactionCreate', async interaction => {
   }
 });
 client.on("ready", () => {
-  console.log(`Hi, ${client.user.username} is now online!`);
+  console.log(`Hi, ${client.user.username} is now online and used in ${client.guilds.cache.size} servers.`);
 
   client.user.setPresence({
     status: "online",

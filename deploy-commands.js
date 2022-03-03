@@ -30,6 +30,6 @@ for (const file of guildCommandFiles) {
 
 const guildId = process.env['GUILD_ID'];
 const guildRest = new REST({ version: '9' }).setToken(token);
-guildRest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
+guildRest.put(Routes.applicationGuildCommands(clientId, guildId), { body: guildCommands })
   .then(() => console.log('Successfully registered guild commands.'))
   .catch(console.error);
