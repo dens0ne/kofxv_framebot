@@ -31,7 +31,8 @@ module.exports = {
         // Temp: validate king of dinosaurs weird name.
         if (character === 'King of dinosaurs' ||
             character === 'Kod' ||
-            character === 'King of Dinosaurs') {
+            character === 'King of Dinosaurs' ||
+            character === 'Dinosaur') {
           character = 'KODino'
             }
         // If character not found, exit.
@@ -44,8 +45,8 @@ module.exports = {
         // Check if single button passed.
         if (parsedMove.match(/^[+\-aAbBcCdD() .]+$/g)) {
           singleButton = true
-          // Preppend "close" to return valid value.
-          parsedMove = 'close ' + parsedMove
+          // Preppend "far" to return valid value.
+          parsedMove = 'far ' + parsedMove
         }
         // Convert dots into whitespaces.
         parsedMove = parsedMove.replace('.', ' ')
@@ -79,7 +80,7 @@ module.exports = {
         lowerCaseChar = lowerCaseChar.split(/\s+/).join('');
         // Get character number for thumbnail.
         const charNo = this.getCharacterNumber(character);
-        console.log(charNo);
+        // console.log(charNo);
         const embed = new MessageEmbed()
           .setColor('#0x1a2c78')
           .setTitle(character)
