@@ -37,7 +37,7 @@ module.exports = {
             }
         // If character not found, exit.
         if (data.hasOwnProperty(character) === false) {
-          return interaction.reply('Could not find specified character: ' + character + '. Refer to the [Google sheet](https://docs.google.com/spreadsheets/d/1uPQlyMB8pJhCILH0BYZNhJAO2cNq0aEZt_ifYQ6-uiI) for available characters.');
+          return interaction.reply('Could not find character: ' + character + '. Refer to the [Google sheet](https://docs.google.com/spreadsheets/d/1uPQlyMB8pJhCILH0BYZNhJAO2cNq0aEZt_ifYQ6-uiI) for available characters.');
         }
         // Trim extra whitespaces from move.
         let parsedMove = move.trim();
@@ -71,10 +71,14 @@ module.exports = {
           return interaction.reply('Could not find specified move: ' + move + '. Refer to the [Google sheet](https://docs.google.com/spreadsheets/d/1uPQlyMB8pJhCILH0BYZNhJAO2cNq0aEZt_ifYQ6-uiI) for available data.');
         }
         let moveData = data[character][escapedMoves];
-        const startup = (moveData['START UP'] !== null) ? moveData['START UP'].toString() : 'N/A';
-        const oh = (moveData.HIT !== null) ? moveData.HIT.toString() : 'N/A';
-        const ob = (moveData.BLOCK !== null) ? moveData.BLOCK.toString() : 'N/A';
+        const startup = (moveData['START UP'] !== null) ? moveData['START UP'].toString() : '-';
+        const oh = (moveData.HIT !== null) ? moveData.HIT.toString() : '-';
+        const ob = (moveData.BLOCK !== null) ? moveData.BLOCK.toString() : '-';
         const notes = (moveData.NOTES !== null) ? moveData.NOTES.toString() : 'No notes found.';
+        const dmg = (moveData.DAMAGE !== null) ? moveData.DAMAGE.toString() : '-';
+        const stun = (moveData.STUN !== null) ? moveData.STUN.toString() : '-';
+        const hits = (moveData.HITS !== null) ? moveData.HITS.toString() : '-';
+        const guardDmg = (moveData.GUARDDMG !== null) ? moveData.GUARDDMG.toString() : '-';
         // Get lowercase trimmed character name for official site url.
         let lowerCaseChar = character.toLowerCase();
         lowerCaseChar = lowerCaseChar.split(/\s+/).join('');
@@ -92,7 +96,13 @@ module.exports = {
             { name: 'Startup', value: startup, inline: true },
             { name: 'On hit', value: oh, inline: true },
             { name: 'On block', value: ob, inline: true },
-            // { name: '\u200B', value: '\u200B' },
+            { name: '\u200B', value: '\u200B' },
+            { name: 'Damage', value: dmg, inline: true },
+            { name: 'Stun', value: stun, inline: true },
+            { name: '\u200B', value: '\u200B' },
+            { name: 'Block', value: hits, inline: true },
+            { name: 'Guard damage', value: guardDmg, inline: true },
+            { name: '\u200B', value: '\u200B' },
             { name: 'Notes', value: notes },
             // { name: 'Inline field title', value: 'Some value here', inline: true },
           );

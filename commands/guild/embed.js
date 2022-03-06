@@ -9,11 +9,11 @@ module.exports = {
     .setDescription('Add character name and move, to get a response with all available move data.')
     .addStringOption(character =>
   		character.setName('character')
-  			.setDescription('The character name')
+  			.setDescription('The character name (e.g. Ash, Iori, K).')
   			.setRequired(true))
     .addStringOption(move =>
   		move.setName('move')
-  			.setDescription('The move input')
+  			.setDescription('The move input (e.g. 2C, 236A, close B).')
   			.setRequired(true)),
   async execute(interaction) {
     const char = interaction.options.getString('character');
@@ -31,22 +31,22 @@ module.exports = {
         // Temp: validate king of dinosaurs weird name.
         if (character === 'King of dinosaurs' ||
             character === 'Kod' ||
-            character === 'King of Dinosaurs') {
+            character === 'King of Dinosaurs' ||
+            character === 'Dinosaur') {
           character = 'KODino'
             }
         // If character not found, exit.
         if (data.hasOwnProperty(character) === false) {
-          return interaction.reply('Could not find specified character: ' + character + '. Refer to the [Google sheet](https://docs.google.com/spreadsheets/d/1uPQlyMB8pJhCILH0BYZNhJAO2cNq0aEZt_ifYQ6-uiI) for available characters.');
+          return interaction.reply('Could not find character: ' + character + '. Refer to the [Google sheet](https://docs.google.com/spreadsheets/d/1uPQlyMB8pJhCILH0BYZNhJAO2cNq0aEZt_ifYQ6-uiI) for available characters.');
         }
         // Trim extra whitespaces from move.
         let parsedMove = move.trim();
-        // parsedMove = parsedMove.trimStart();
         let singleButton = false
         // Check if single button passed.
         if (parsedMove.match(/^[+\-aAbBcCdD() .]+$/g)) {
           singleButton = true
-          // Preppend "close" to return valid value.
-          parsedMove = 'close ' + parsedMove
+          // Preppend "far" to return valid value.
+          parsedMove = 'far ' + parsedMove
         }
         // Convert dots into whitespaces.
         parsedMove = parsedMove.replace('.', ' ')
@@ -66,67 +66,25 @@ module.exports = {
           escapedMoves += element + ' ';
         });
         escapedMoves = escapedMoves.trimEnd();
-        console.log(escapedMoves)
         // If move not found, exit.
         if (data[character].hasOwnProperty(escapedMoves) === false) {
           return interaction.reply('Could not find specified move: ' + move + '. Refer to the [Google sheet](https://docs.google.com/spreadsheets/d/1uPQlyMB8pJhCILH0BYZNhJAO2cNq0aEZt_ifYQ6-uiI) for available data.');
         }
         let moveData = data[character][escapedMoves];
-        // const lib = require('lib')({token: process.env.STDLIB_SECRET_TOKEN});
-
-        // interaction.messages.create({
-        //   "channel_id": `${context.params.event.channel_id}`,
-        //   "content": "",
-        //   "tts": false,
-        //   "embeds": [
-        //     {
-        //       "type": "rich",
-        //       "title": `Iori`,
-        //       "description": `Move name `,
-        //       "color": 0x1a2c78,
-        //       "fields": [
-        //         {
-        //           "name": `Startup`,
-        //           "value": `0`,
-        //           "inline": true
-        //         },
-        //         {
-        //           "name": `On hit`,
-        //           "value": `0`,
-        //           "inline": true
-        //         },
-        //         {
-        //           "name": `On block`,
-        //           "value": `0`,
-        //           "inline": true
-        //         },
-        //         {
-        //           "name": `Notes`,
-        //           "value": `N/A`
-        //         }
-        //       ],
-        //       "image": {
-        //         "url": `https://c.tenor.com/dzkvPAgIwfoAAAAC/kof-xv.gif`,
-        //         "height": 0,
-        //         "width": 0
-        //       },
-        //       "thumbnail": {
-        //         "url": `https://www.snk-corp.co.jp/us/games/kof-xv/img/main/top_slider04.png`,
-        //         "height": 0,
-        //         "width": 0
-        //       }
-        //     }
-        //   ]
-        // });
-        const startup = (moveData['START UP'] !== null) ? moveData['START UP'].toString() : 'N/A';
-        const oh = (moveData.HIT !== null) ? moveData.HIT.toString() : 'N/A';
-        const ob = (moveData.BLOCK !== null) ? moveData.BLOCK.toString() : 'N/A';
+        const startup = (moveData['START UP'] !== null) ? moveData['START UP'].toString() : '-';
+        const oh = (moveData.HIT !== null) ? moveData.HIT.toString() : '-';
+        const ob = (moveData.BLOCK !== null) ? moveData.BLOCK.toString() : '-';
         const notes = (moveData.NOTES !== null) ? moveData.NOTES.toString() : 'No notes found.';
+        const dmg = (moveData.DAMAGE !== null) ? moveData.DAMAGE.toString() : '-';
+        const stun = (moveData.STUN !== null) ? moveData.STUN.toString() : '-';
+        const hits = (moveData.HITS !== null) ? moveData.HITS.toString() : '-';
+        const guardDmg = (moveData.GUARDDMG !== null) ? moveData.GUARDDMG.toString() : '-';
+        // Get lowercase trimmed character name for official site url.
         let lowerCaseChar = character.toLowerCase();
         lowerCaseChar = lowerCaseChar.split(/\s+/).join('');
         // Get character number for thumbnail.
         const charNo = this.getCharacterNumber(character);
-        console.log(charNo);
+        // console.log(charNo);
         const embed = new MessageEmbed()
           .setColor('#0x1a2c78')
           .setTitle(character)
@@ -138,28 +96,18 @@ module.exports = {
             { name: 'Startup', value: startup, inline: true },
             { name: 'On hit', value: oh, inline: true },
             { name: 'On block', value: ob, inline: true },
-            // { name: '\u200B', value: '\u200B' },
+            { name: '\u200B', value: '\u200B' },
+            { name: 'Damage', value: dmg, inline: true },
+            { name: 'Stun', value: stun, inline: true },
+            { name: '\u200B', value: '\u200B' },
+            { name: 'Block', value: hits, inline: true },
+            { name: 'Guard damage', value: guardDmg, inline: true },
+            { name: '\u200B', value: '\u200B' },
             { name: 'Notes', value: notes },
             // { name: 'Inline field title', value: 'Some value here', inline: true },
           );
-          (moveData.GIF !== null) ? embed.setImage(moveData.GIF) : embed.addField('No GIF was found for this move', 'Feel free to share a Giphy hosted one with the developers.', true);
-          // .addField('Inline field title', 'Some value here', true)
-          // .setImage(moveGif[character][escapedMoves]);
-          // .setVideo({ url: 'https://www.youtube.com/watch?v=_o7Ip64-Sio' });
-        
-        // let moveData = data[character][escapedMoves];
-        //   response = character + ' - ' + '(' + escapedMoves + ') - ';
-        //   response += (moveData["START UP"] !== null) ? '[Startup]: ' + moveData["START UP"] + ' ' : '';
-        //   response += (moveData.BLOCK !== null) ? '[on Block]: ' + moveData.BLOCK + ' ' : '';
-        //   response += (moveData.HIT !== null) ? '[on Hit]: ' + moveData.HIT + ' ' : '';
-        //   response += (moveData.NOTES !== null) ? '[Notes]: ' + moveData.NOTES + ' ' : '';
-        //   response += (singleButton) ? '\n*Note: By default, for single buttons we return the "close button" value. For better results, try preppending a button with "close" or "far" (e.g. close A or far D).*' : '';
-        //   // console.log(moveData.BLOCK)
-          // const channel = interaction.channels.get(row.serverlog)
-          // channel.send({ embeds: [exampleEmbed] });
-          // return interaction.send({ embeds: [exampleEmbed] });
+          (moveData.GIF !== null) ? embed.setImage(moveData.GIF) : embed.addField('No GIF was found for this move', 'Feel free to share a Giphy hosted GIF with the [developers](https://github.com/dens0ne/kofxv_framebot/issues) if you have one.', true);
         return interaction.reply({embeds: [embed]});
-          // return interaction.reply(response);
       } catch (err) {
         console.log("Error parsing JSON string:", err);
         return interaction.reply('There was an error while processing your request, if the problem persists, contact the bot developers. Refer to the [Google sheet](https://docs.google.com/spreadsheets/d/1uPQlyMB8pJhCILH0BYZNhJAO2cNq0aEZt_ifYQ6-uiI) to look for the data.');
