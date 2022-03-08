@@ -16,3 +16,7 @@ Animated gifs will be added slowly, starting with normal moves.
 
 ## Feedback
 Feel free to create issues and/or reach out in the official bot server: https://discord.gg/fPyTMgpR4X.
+
+## Bot status
+
+![Discord Bots](https://top.gg/api/widget/946480362245206028.svg)
