@@ -19,4 +19,4 @@ Feel free to create issues and/or reach out in the official bot server: https://
 
 ## Bot status
 
-![Discord Bots](https://top.gg/api/widget/946480362245206028.svg)
+[![Discord Bots](https://top.gg/api/widget/946480362245206028.svg)](https://top.gg/bot/946480362245206028)
