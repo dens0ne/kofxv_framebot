@@ -14,6 +14,9 @@ The bot has a `/frames` slash command which accept 2 arguments:
 ## Notes
 Animated gifs will be added slowly, starting with normal moves.
 
+## Demo
+[![gif](https://media.giphy.com/media/5g5IdYOiHc4RosbyBn/giphy.gif)](https://giphy.com/gifs/5g5IdYOiHc4RosbyBn)
+
 ## Feedback
 Feel free to create issues and/or reach out in the official bot server: https://discord.gg/fPyTMgpR4X.
 
