@@ -9,10 +9,12 @@ module.exports = {
     .setDescription('Add character name and move, to get a response with all available move data.')
     .addStringOption(character =>
   		character.setName('character')
+        .setAutocomplete(true)
   			.setDescription('The character name (e.g. Ash, Iori, K).')
   			.setRequired(true))
     .addStringOption(move =>
   		move.setName('move')
+        .setAutocomplete(true)
   			.setDescription('The move input (e.g. 2C, 236A, close B).')
   			.setRequired(true)),
   async execute(interaction) {
@@ -45,17 +47,21 @@ module.exports = {
         // Check if single button passed.
         if (parsedMove.match(/^[+\-aAbBcCdD() .]+$/g)) {
           singleButton = true
+          // console.log(parsedMove)
           // Preppend "far" to return valid value.
-          parsedMove = 'far ' + parsedMove
+          parsedMove = (parsedMove === 'cd' || parsedMove === 'CD') ? parsedMove : 'far ' + parsedMove;
         }
+        // console.log(parsedMove)
         // Convert dots into whitespaces.
         parsedMove = parsedMove.replace('.', ' ')
         // Trim whitespaces and add caps, turning "236 a" into "236A".
         if (parsedMove.match(/^[\d+ $+\-aAbBcCdD().]+$/g) ) {
           parsedMove = parsedMove.toUpperCase()
           parsedMove = parsedMove.replace(' ', '')
-          console.log("Is this still useful? " + parsedMove)
+          // console.log("Is this still useful? " + parsedMove)
         }
+        console.log(character)
+        console.log(parsedMove)
         let escapedMoves = ''
         const moveArray = parsedMove.split(" ")
         moveArray.forEach((element) => {
@@ -105,7 +111,8 @@ module.exports = {
             { name: '\u200B', value: '\u200B' },
             { name: 'Notes', value: notes },
             // { name: 'Inline field title', value: 'Some value here', inline: true },
-          );
+          )
+          .setFooter({ text: 'Official bot server: https://discord.gg/fPyTMgpR4X', iconURL: 'https://cdn.iconscout.com/icon/free/png-128/discord-3-569463.png' });
           (moveData.GIF !== null) ? embed.setImage(moveData.GIF) : embed.addField('No GIF was found for this move', 'Feel free to share a Giphy hosted GIF with the [developers](https://github.com/dens0ne/kofxv_framebot/issues) if you have one.', true);
         return interaction.reply({embeds: [embed]});
       } catch (err) {
