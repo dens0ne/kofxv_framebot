@@ -59,8 +59,8 @@ client.on('interactionCreate', autocomplete => {
       // currentValue = autocomplete.options.getFocused()
       let moveObj = {}
       if (json[character] === undefined) {
-        moveObj["name"] = '404';
-        moveObj["value"] = 'Character not found, please update character name';
+        moveObj["name"] = 'Moves not found for specified character, try another character';
+        moveObj["value"] = 'Moves not found for specified character, try another character';
         options.push(moveObj);
       } else {
         let moves = [] 

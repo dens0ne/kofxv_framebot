@@ -112,7 +112,7 @@ module.exports = {
             { name: 'Notes', value: notes },
             // { name: 'Inline field title', value: 'Some value here', inline: true },
           )
-          .setFooter({ text: 'Official bot server: https://discord.gg/fPyTMgpR4X', iconURL: 'https://cdn.iconscout.com/icon/free/png-128/discord-3-569463.png' });
+          .setFooter({ text: 'Got feedback? Join the bot server: https://discord.gg/fPyTMgpR4X', iconURL: 'https://cdn.iconscout.com/icon/free/png-128/discord-3-569463.png' });
           (moveData.GIF !== null) ? embed.setImage(moveData.GIF) : embed.addField('No GIF was found for this move', 'Feel free to share a Giphy hosted GIF with the [developers](https://github.com/dens0ne/kofxv_framebot/issues) if you have one.', true);
         return interaction.reply({embeds: [embed]});
       } catch (err) {
