@@ -30,7 +30,7 @@ client.once('ready', () => {
   })
   console.log('Ready!');
 });
-client.on('interactionCreate', autocomplete => {
+client.on('interactionCreate', async autocomplete => {
 	if (!autocomplete.isAutocomplete()) return;
   // console.log(autocomplete.commandName)
 	if (autocomplete.commandName === 'embed' || autocomplete.commandName === 'frames') {
@@ -82,7 +82,7 @@ client.on('interactionCreate', autocomplete => {
         }) 
       }
     }
-		autocomplete.respond(options);
+		await autocomplete.respond(options);
 	}
 });
 client.on('interactionCreate', async interaction => {

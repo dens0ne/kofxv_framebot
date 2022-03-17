@@ -161,7 +161,10 @@ module.exports = {
       'Krohnen': '36',
       'Maxima': '37',
       'Kula': '38',
-      'Elizabeth': '39'
+      'Elisabeth': '39',
+      'Rock': '40',
+      'B Jenet': '41',
+      'Gato': '42'
     };
     return charOrder[character];
   }
