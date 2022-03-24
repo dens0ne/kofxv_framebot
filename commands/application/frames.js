@@ -110,6 +110,9 @@ module.exports = {
             { name: 'Guard damage', value: guardDmg, inline: true },
             { name: '\u200B', value: '\u200B' },
             { name: 'Notes', value: notes },
+            { name: '\u200B', value: '\u200B' },
+            { name: 'Framedata Andorid app now available!', value: 'https://play.google.com/store/apps/details?id=com.framedata.fof' },
+            { name: '\u200B', value: '\u200B' },
             // { name: 'Inline field title', value: 'Some value here', inline: true },
           )
           .setFooter({ text: 'Got feedback? Join the bot server: https://discord.gg/fPyTMgpR4X', iconURL: 'https://cdn.iconscout.com/icon/free/png-128/discord-3-569463.png' });

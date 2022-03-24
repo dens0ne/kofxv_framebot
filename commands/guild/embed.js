@@ -47,11 +47,11 @@ module.exports = {
         // Check if single button passed.
         if (parsedMove.match(/^[+\-aAbBcCdD() .]+$/g)) {
           singleButton = true
-          console.log(parsedMove)
+          // console.log(parsedMove)
           // Preppend "far" to return valid value.
           parsedMove = (parsedMove === 'cd' || parsedMove === 'CD') ? parsedMove : 'far ' + parsedMove;
         }
-        console.log(parsedMove)
+        // console.log(parsedMove)
         // Convert dots into whitespaces.
         parsedMove = parsedMove.replace('.', ' ')
         // Trim whitespaces and add caps, turning "236 a" into "236A".
@@ -110,10 +110,15 @@ module.exports = {
             { name: 'Guard damage', value: guardDmg, inline: true },
             { name: '\u200B', value: '\u200B' },
             { name: 'Notes', value: notes },
+            { name: '\u200B', value: '\u200B' },
+            { name: 'Framedata Andorid app now available!', value: 'https://play.google.com/store/apps/details?id=com.framedata.fof' },
+            { name: '\u200B', value: '\u200B' },
             // { name: 'Inline field title', value: 'Some value here', inline: true },
           )
-          .setFooter({ text: 'Official bot server: https://discord.gg/fPyTMgpR4X', iconURL: 'https://cdn.iconscout.com/icon/free/png-128/discord-3-569463.png' });
+          .setFooter({ text: 'Got feedback? Join the bot server: https://discord.gg/fPyTMgpR4X', iconURL: 'https://cdn.iconscout.com/icon/free/png-128/discord-3-569463.png' });
           (moveData.GIF !== null) ? embed.setImage(moveData.GIF) : embed.addField('No GIF was found for this move', 'Feel free to share a Giphy hosted GIF with the [developers](https://github.com/dens0ne/kofxv_framebot/issues) if you have one.', true);
+        // { name: '\u200B', value: '\u200B' },
+        //     { name: 'Framedata Andorid app now available!', value: 'https://play.google.com/store/apps/details?id=com.framedata.fof' },
         return interaction.reply({embeds: [embed]});
       } catch (err) {
         console.log("Error parsing JSON string:", err);
@@ -161,7 +166,10 @@ module.exports = {
       'Krohnen': '36',
       'Maxima': '37',
       'Kula': '38',
-      'Elisabeth': '39'
+      'Elisabeth': '39',
+      'Rock': '40',
+      'B Jenet': '41',
+      'Gato': '42'
     };
     return charOrder[character];
   }

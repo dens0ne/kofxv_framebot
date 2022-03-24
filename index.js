@@ -83,6 +83,14 @@ client.on('interactionCreate', async autocomplete => {
       }
     }
 		await autocomplete.respond(options);
+    // await autocomplete.deferReply()
+    // await autocomplete.editReply(options)
+    //   .catch(err => {
+    //     autocomplete.reply('An error ocurred... probably Hakkesshu is benind this.')
+    //     console.log(options)
+    //     return console.error(err)
+    //   })
+  
 	}
 });
 client.on('interactionCreate', async interaction => {
@@ -121,7 +129,7 @@ client.on("ready", () => {
   client.user.setPresence({
     status: "online",
     activities: [{
-      name: 'oonga? Use /frames to get started'
+      name: 'YOLO? Use /frames to get started. Now available on Android as "Frame of fighters"!'
     }],
   }); 
 });
