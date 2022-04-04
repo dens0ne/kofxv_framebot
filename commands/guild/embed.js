@@ -102,23 +102,21 @@ module.exports = {
             { name: 'Startup', value: startup, inline: true },
             { name: 'On hit', value: oh, inline: true },
             { name: 'On block', value: ob, inline: true },
-            { name: '\u200B', value: '\u200B' },
+            // { name: '\u200B', value: '\u200B' },
             { name: 'Damage', value: dmg, inline: true },
             { name: 'Stun', value: stun, inline: true },
-            { name: '\u200B', value: '\u200B' },
+            // { name: '\u200B', value: '\u200B' },
             { name: 'Block', value: hits, inline: true },
             { name: 'Guard damage', value: guardDmg, inline: true },
-            { name: '\u200B', value: '\u200B' },
+            // { name: '\u200B', value: '\u200B' },
             { name: 'Notes', value: notes },
-            { name: '\u200B', value: '\u200B' },
+            // { name: '\u200B', value: '\u200B' },
             { name: 'Framedata Andorid app now available!', value: 'https://play.google.com/store/apps/details?id=com.framedata.fof' },
-            { name: '\u200B', value: '\u200B' },
+            // { name: '\u200B', value: '\u200B' },
             // { name: 'Inline field title', value: 'Some value here', inline: true },
           )
           .setFooter({ text: 'Got feedback? Join the bot server: https://discord.gg/fPyTMgpR4X', iconURL: 'https://cdn.iconscout.com/icon/free/png-128/discord-3-569463.png' });
           (moveData.GIF !== null) ? embed.setImage(moveData.GIF) : embed.addField('No GIF was found for this move', 'Feel free to share a Giphy hosted GIF with the [developers](https://github.com/dens0ne/kofxv_framebot/issues) if you have one.', true);
-        // { name: '\u200B', value: '\u200B' },
-        //     { name: 'Framedata Andorid app now available!', value: 'https://play.google.com/store/apps/details?id=com.framedata.fof' },
         return interaction.reply({embeds: [embed]});
       } catch (err) {
         console.log("Error parsing JSON string:", err);
