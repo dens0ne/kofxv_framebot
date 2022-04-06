@@ -1,2 +1,2 @@
 language = "bash"
-run="npm start"
+run="while true; do npm start; sleep 2; done"

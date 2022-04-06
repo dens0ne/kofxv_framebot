@@ -129,12 +129,15 @@ client.on("ready", () => {
   client.user.setPresence({
     status: "online",
     activities: [{
-      name: 'YOLO? Use /frames to get started. Now available on Android as "Frame of fighters"!'
+      name: 'YOLO? Use /frames or /help to get started. Now available on Android as "Frame of fighters"!'
     }],
   }); 
 });
+// client.on("error", (e) => console.error(e));
+// client.on("warn", (e) => console.warn(e));
+// client.on("debug", (e) => console.info(e));
 // Keep bot alive.
 keepAlive();
-// Login to Discord with your client's token
+// Login to Discord with your client's token.
 const token = process.env['DISCORD_TOKEN']
 client.login(token);
