@@ -51,10 +51,8 @@ client.on('interactionCreate', async autocomplete => {
         }
       })
     }
-    // 
     const character = autocomplete.options.getString('character')
-    // console.log(character)
-    // If move is focused 
+    // If move is focused.
     if (currentName === "move" && character !== "") {
       // currentValue = autocomplete.options.getFocused()
       let moveObj = {}
@@ -63,18 +61,28 @@ client.on('interactionCreate', async autocomplete => {
         moveObj["value"] = 'Moves not found for specified character, try another character';
         options.push(moveObj);
       } else {
-        let moves = [] 
+        // Load move inputs.
+        let moves = []
         Object.keys(json[character]).forEach(function (key) {
-          moves.push(key);
+          let name = ''
+          // Append move name if present.
+          if (json[character][key]['NAME'] !== undefined && json[character][key]['NAME'] !== null) {
+            name = ' - ' + json[character][key]['NAME'];
+          }
+          moves.push(key + name);
         })
-        // console.log(moves)
-        // console.log('currval ' + currentValue)
-        moves.forEach((move) => {
+
+        // Loop through moves and update when user types.
+        moves.forEach((move, index) => {
           if (move.toLowerCase().includes(currentValue.toLowerCase())) {
             moveObj = {}
+            // Trim move to only have input for object value.
+            let input = move
+            if (move.toLowerCase().includes('-')) {
+             input = move.split("-")
+            }
             moveObj["name"] = move;
-            moveObj["value"] = move;
-            // console.log(move)
+            moveObj["value"] = (Array.isArray(input)) ? input[0].trim() : input;
             if (options.length < 25) {
               options.push(moveObj);
             }
@@ -82,36 +90,12 @@ client.on('interactionCreate', async autocomplete => {
         }) 
       }
     }
-		await autocomplete.respond(options);
-    // await autocomplete.deferReply()
-    // await autocomplete.editReply(options)
-    //   .catch(err => {
-    //     autocomplete.reply('An error ocurred... probably Hakkesshu is benind this.')
-    //     console.log(options)
-    //     return console.error(err)
-    //   })
-  
+		await autocomplete.respond(options); 
 	}
 });
 client.on('interactionCreate', async interaction => {
   if (!interaction.isCommand()) return;
 
- //  if (!interaction.isAutocomplete()) return;
-	// if (interaction.commandName === 'frames' || interaction.commandName === 'embed') {
-	// 	let currentValue = interaction.options.getFocused();
- //    const options = [];
- //    characters.forEach((character) => {
- //      if (character.includes(currentValue.charAt(0).toUpperCase())) {
- //        let charObj = {}
- //        charObj["name"] = character;
- //        charObj["value"] = character;
- //        if (options.length < 25) {
- //          options.push(charObj);
- //        }
- //      }
- //    })
-	// 	interaction.respond(options);
- //  } 
   const command = client.commands.get(interaction.commandName);
 
   if (!command) return;

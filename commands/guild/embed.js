@@ -1,21 +1,20 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const fs = require('fs');
 const { MessageEmbed } = require('discord.js');
-const { MessageEmbedVideo } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('embed')
-    .setDescription('Add character name and move, to get a response with all available move data.')
+    .setDescription('Add character name and move, to get a response with all available move data')
     .addStringOption(character =>
   		character.setName('character')
         .setAutocomplete(true)
-  			.setDescription('The character name (e.g. Ash, Iori, K).')
+  			.setDescription('The character name (e.g. Ash, Iori, K)')
   			.setRequired(true))
     .addStringOption(move =>
   		move.setName('move')
         .setAutocomplete(true)
-  			.setDescription('The move input (e.g. 2C, 236A, close B).')
+  			.setDescription('The move input (e.g. 2C, 236A, close B)')
   			.setRequired(true)),
   async execute(interaction) {
     const char = interaction.options.getString('character');
@@ -111,7 +110,7 @@ module.exports = {
             // { name: '\u200B', value: '\u200B' },
             { name: 'Notes', value: notes },
             // { name: '\u200B', value: '\u200B' },
-            { name: 'Framedata Andorid app now available!', value: 'https://play.google.com/store/apps/details?id=com.framedata.fof' },
+            { name: 'Framedata Android app now available!', value: 'https://play.google.com/store/apps/details?id=com.framedata.fof' },
             // { name: '\u200B', value: '\u200B' },
             // { name: 'Inline field title', value: 'Some value here', inline: true },
           )
@@ -167,7 +166,8 @@ module.exports = {
       'Elisabeth': '39',
       'Rock': '40',
       'B Jenet': '41',
-      'Gato': '42'
+      'Gato': '42',
+      'Rugal': '43'
     };
     return charOrder[character];
   }
