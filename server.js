@@ -1,6 +1,7 @@
 const express = require('express');
 const server = express();
 server.all('/', (req, res)=>{
+    console.log('Uptime robot says hi.');
     res.send('Your bot is alive!')
 })
 function keepAlive(){

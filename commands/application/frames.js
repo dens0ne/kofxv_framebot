@@ -110,12 +110,17 @@ module.exports = {
             // { name: '\u200B', value: '\u200B' },
             { name: 'Notes', value: notes },
             // { name: '\u200B', value: '\u200B' },
-            { name: 'Framedata Android app now available!', value: 'https://play.google.com/store/apps/details?id=com.framedata.fof' },
+            // { name: 'Framedata Android app now available!', value: 'https://play.google.com/store/apps/details?id=com.framedata.fof' },
+
+            // { name: 'Patch 1.32 has been mostly implemented', value: 'https://www.snk-corp.co.jp/us/games/kof-xv/img/news/patch_1.32_eng.pdf'}
             // { name: '\u200B', value: '\u200B' },
             // { name: 'Inline field title', value: 'Some value here', inline: true },
           )
           .setFooter({ text: 'Got feedback? Join the bot server: https://discord.gg/fPyTMgpR4X', iconURL: 'https://cdn.iconscout.com/icon/free/png-128/discord-3-569463.png' });
-          (moveData.GIF !== null) ? embed.setImage(moveData.GIF) : embed.addField('No GIF was found for this move', 'Feel free to share a Giphy hosted GIF with the [developers](https://github.com/dens0ne/kofxv_framebot/issues) if you have one.', true);
+        // Conditionally set GIF if present.
+        (moveData.GIF !== null) ? embed.setImage(moveData.GIF) : embed.addField('No GIF was found for this move', 'Feel free to share a Giphy hosted GIF with the [developers](https://github.com/dens0ne/kofxv_framebot/issues) if you have one.', true);
+        // Conditionally set move name if present.
+        (moveData.NAME !== null) ? embed.setDescription(moveData.NAME) : '';
         return interaction.reply({embeds: [embed]});
       } catch (err) {
         console.log("Error parsing JSON string:", err);
@@ -167,7 +172,13 @@ module.exports = {
       'Rock': '40',
       'B Jenet': '41',
       'Gato': '42',
-      'Rugal': '43'
+      'Rugal': '43',
+      'Geese': '44',
+      'Billy': '45',
+      'Yamazaki': '46',
+      'Shermie Orochi': '14',
+      'Chris Orochi': '15',
+      'Yashiro Orochi': '11'
     };
     return charOrder[character];
   }

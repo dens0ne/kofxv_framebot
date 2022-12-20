@@ -2,7 +2,9 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const keepAlive = require('./server');
-const path = require('path')
+const path = require('path');
+const talkedRecently = new Set();
+// const moment = require('moment');
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
@@ -108,6 +110,10 @@ client.on('interactionCreate', async interaction => {
   }
 });
 client.on("ready", () => {
+  // if (client.shard.id == 0)
+        // console.log(`-- ${moment().utc().format('MMMM Do')}, ${moment().utc().format('hh:mm a')} --`);
+
+  // console.log(`Shard ${client.shard.id} ready!`);
   console.log(`Hi, ${client.user.username} is now online and used in ${client.guilds.cache.size} servers.`);
 
   client.user.setPresence({
@@ -117,11 +123,16 @@ client.on("ready", () => {
     }],
   }); 
 });
-// client.on("error", (e) => console.error(e));
-// client.on("warn", (e) => console.warn(e));
-// client.on("debug", (e) => console.info(e));
+client.on("error", (e) => console.error(e));
+client.on("warn", (e) => console.warn(e));
+client.on("debug", (e) => console.info(e));
+client.on('rateLimit', (info) => {
+  console.log(`Rate limit hit ${info.timeDifference ? info.timeDifference : info.timeout ? info.timeout: 'Unknown timeout '}`)
+})
 // Keep bot alive.
 keepAlive();
+// setInterval(keepAlive, 1000 * 60 * 60);
+// setInterval(keepAlive, 5000);
 // Login to Discord with your client's token.
 const token = process.env['DISCORD_TOKEN']
 client.login(token);
