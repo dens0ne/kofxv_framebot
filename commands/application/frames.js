@@ -23,7 +23,7 @@ module.exports = {
     fs.readFile("./assets/framedata.json", "utf8", (err, jsonObject) => {
       if (err) {
         // console.log("Error reading file from disk:", err);
-        return interaction.reply('Could not load frame data file. Refer to the [Google sheet](https://docs.google.com/spreadsheets/d/1uPQlyMB8pJhCILH0BYZNhJAO2cNq0aEZt_ifYQ6-uiI) for the data.');
+        return interaction.reply('Could not load frame data file. Refer to the [Google sheet](https://docs.google.com/spreadsheets/d/16_x97bxQujwlDQvfk1UDlojX3uNKWto4oII6zuBtt7E/edit?usp=drivesdk) for the data.');
       }
       try {
         let data = JSON.parse(jsonObject);
@@ -38,7 +38,7 @@ module.exports = {
             }
         // If character not found, exit.
         if (data.hasOwnProperty(character) === false) {
-          return interaction.reply('Could not find character: ' + character + '. Refer to the [Google sheet](https://docs.google.com/spreadsheets/d/1uPQlyMB8pJhCILH0BYZNhJAO2cNq0aEZt_ifYQ6-uiI) for available characters.');
+          return interaction.reply('Could not find character: ' + character + '. Refer to the [Google sheet](https://docs.google.com/spreadsheets/d/16_x97bxQujwlDQvfk1UDlojX3uNKWto4oII6zuBtt7E/edit?usp=drivesdk) for available characters.');
         }
         // Trim extra whitespaces from move.
         let parsedMove = move.trim();
@@ -48,7 +48,7 @@ module.exports = {
           singleButton = true
           // console.log(parsedMove)
           // Preppend "far" to return valid value.
-          parsedMove = (parsedMove === 'cd' || parsedMove === 'CD') ? parsedMove : 'far ' + parsedMove;
+          // parsedMove = (parsedMove === 'cd' || parsedMove === 'CD') ? parsedMove : 'far ' + parsedMove;
         }
         // console.log(parsedMove)
         // Convert dots into whitespaces.
@@ -73,7 +73,7 @@ module.exports = {
         escapedMoves = escapedMoves.trimEnd();
         // If move not found, exit.
         if (data[character].hasOwnProperty(escapedMoves) === false) {
-          return interaction.reply('Could not find specified move: ' + move + '. Refer to the [Google sheet](https://docs.google.com/spreadsheets/d/1uPQlyMB8pJhCILH0BYZNhJAO2cNq0aEZt_ifYQ6-uiI) for available data.');
+          return interaction.reply('Could not find specified move: ' + move + '. Refer to the [Google sheet](https://docs.google.com/spreadsheets/d/16_x97bxQujwlDQvfk1UDlojX3uNKWto4oII6zuBtt7E/edit?usp=drivesdk) for available data.');
         }
         let moveData = data[character][escapedMoves];
         const startup = (moveData['START UP'] !== null) ? moveData['START UP'].toString() : '-';
@@ -94,25 +94,24 @@ module.exports = {
           .setColor('#0x1a2c78')
           .setTitle(character)
           .setURL('https://www.snk-corp.co.jp/us/games/kof-xv/characters/characters_' + lowerCaseChar + '.php')
-          .setAuthor({ name: escapedMoves, iconURL: 'https://pbs.twimg.com/profile_images/1150082025673625600/m1VyNZtc_400x400.png', url: 'https://docs.google.com/spreadsheets/d/1uPQlyMB8pJhCILH0BYZNhJAO2cNq0aEZt_ifYQ6-uiI' })
+          .setAuthor({ name: escapedMoves, iconURL: 'https://pbs.twimg.com/profile_images/1150082025673625600/m1VyNZtc_400x400.png', url: 'https://docs.google.com/spreadsheets/d/16_x97bxQujwlDQvfk1UDlojX3uNKWto4oII6zuBtt7E/edit?usp=drivesdk' })
           // .setDescription('Move input')
           .setThumbnail('https://www.snk-corp.co.jp/us/games/kof-xv/img/main/top_slider' + charNo + '.png')
           .addFields(
-            { name: 'Startup', value: startup, inline: true },
-            { name: 'On hit', value: oh, inline: true },
-            { name: 'On block', value: ob, inline: true },
+            { name: 'Startup', value: startup, inline: false },
+            { name: 'On hit', value: oh, inline: false },
+            { name: 'On block', value: ob, inline: false },
             // { name: '\u200B', value: '\u200B' },
-            { name: 'Damage', value: dmg, inline: true },
-            { name: 'Stun', value: stun, inline: true },
+            { name: 'Damage', value: dmg, inline: false },
+            { name: 'Stun', value: stun, inline: false },
             // { name: '\u200B', value: '\u200B' },
-            { name: 'Block', value: hits, inline: true },
-            { name: 'Guard damage', value: guardDmg, inline: true },
+            { name: 'Block', value: hits, inline: false },
+            { name: 'Guard damage', value: guardDmg, inline: false },
             // { name: '\u200B', value: '\u200B' },
             { name: 'Notes', value: notes },
-            // { name: '\u200B', value: '\u200B' },
+            { name: '\u200B', value: '\u200B' },
             // { name: 'Framedata Android app now available!', value: 'https://play.google.com/store/apps/details?id=com.framedata.fof' },
-
-            // { name: 'Patch 1.32 has been mostly implemented', value: 'https://www.snk-corp.co.jp/us/games/kof-xv/img/news/patch_1.32_eng.pdf'}
+            { name: 'Patch 2.10 status:', value: 'Work in progress', inline: true},
             // { name: '\u200B', value: '\u200B' },
             // { name: 'Inline field title', value: 'Some value here', inline: true },
           )
@@ -124,7 +123,7 @@ module.exports = {
         return interaction.reply({embeds: [embed]});
       } catch (err) {
         console.log("Error parsing JSON string:", err);
-        return interaction.reply('There was an error while processing your request, if the problem persists, contact the bot developers. Refer to the [Google sheet](https://docs.google.com/spreadsheets/d/1uPQlyMB8pJhCILH0BYZNhJAO2cNq0aEZt_ifYQ6-uiI) to look for the data.');
+        return interaction.reply('There was an error while processing your request, if the problem persists, contact the bot developers. Refer to the [Google sheet](https://docs.google.com/spreadsheets/d/16_x97bxQujwlDQvfk1UDlojX3uNKWto4oII6zuBtt7E/edit?usp=drivesdk) to look for the data.');
       }
     });
   },
@@ -176,9 +175,19 @@ module.exports = {
       'Geese': '44',
       'Billy': '45',
       'Yamazaki': '46',
-      'Shermie Orochi': '14',
-      'Chris Orochi': '15',
-      'Yashiro Orochi': '11'
+      'Shermie Orochi': '48',
+      'Chris Orochi': '49',
+      'Yashiro Orochi': '47',
+      'Haohmaru': '50',
+      'Nakoruru': '51',
+      'Darli Dagger': '52',
+      'Shingo': '53',
+      'Kim': '54',
+      'Sylvie Paula Paula': '55',
+      'Goenitz': '56',
+      'Najd': '57',
+      'Duo Lon': '58'
+      
     };
     return charOrder[character];
   }

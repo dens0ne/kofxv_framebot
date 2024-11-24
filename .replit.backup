@@ -1,0 +1,2 @@
+language = "bash"
+run="while true; do killall5 -9; sleep 5; npm start; sleep 5; done"
